@@ -19,6 +19,7 @@ new Vue({
         var url = 'tasks/' + keep.id;
         axios.delete(url).then(response => {
             this.getKeeps(); //Despues de eliminar hay que volver a cargar el listado
+            toast.success('Eliminado correctamente');
         });
       }
     }
