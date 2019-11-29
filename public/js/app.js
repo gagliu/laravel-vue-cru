@@ -23886,10 +23886,11 @@
     return Vue;
   
   }));
-import Axios from "axios";
-
-var vm = new Vue({
+new Vue({
     el: '#crud',
+    created: function() {
+      this.getKeeps();
+    },
     data: {
       keeps: [] //Todas las tareas
     },
@@ -23899,6 +23900,9 @@ var vm = new Vue({
           axios.get(urlKeeps).then( response => {
             this.keeps = response.data
           });
+      },
+      deleteKeep: function() {
+        alert('eliminar');
       }
     }
   });
