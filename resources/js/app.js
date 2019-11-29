@@ -4,7 +4,9 @@ new Vue({
       this.getKeeps();
     },
     data: {
-      keeps: [] //Todas las tareas
+      keeps: [], //Todas las tareas
+      newKeep: [],
+      errors: []
     },
     methods: {
       getKeeps: function() {
@@ -19,8 +21,22 @@ new Vue({
         var url = 'tasks/' + keep.id;
         axios.delete(url).then(response => {
             this.getKeeps(); //Despues de eliminar hay que volver a cargar el listado
-            toast.success('Eliminado correctamente');
+            toastr.success('Eliminado correctamente');
         });
+      },
+      createKeep: function() {
+          var url = 'tasks';
+          axios.post(url, {
+              keep: this.newKeep
+          }).then(response => {
+              this.getKeeps();
+              this.newKeep = ''; //Volver a mandar la variable sin ningun valor aparentemente
+              this.errors = [];
+              $('#create').modal('hide');
+              toastr.success('Nueva tarea creada con exito');          
+          }).catch(error => {
+              this.errors = error.response.data
+          })
       }
     }
   });
