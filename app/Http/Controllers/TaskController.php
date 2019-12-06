@@ -12,11 +12,23 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::get();
+        //Como le envia el indice de paginacion? Esta en el request pero como se indica?
+        $tasks = Task::orderBy('id','ASC')->paginate(2);
 
-        return $tasks;
+        //return $tasks;
+        return [
+            'pagination' => [
+                'total'        => $tasks->total(),
+                'current_page' => $tasks->currentPage(),
+                'per_page'     => $tasks->perPage(),
+                'last_page'    => $tasks->lastPage(),
+                'from'         => $tasks->firstItem(),
+                'to'           => $tasks->lastItem()
+            ],
+            'tasks' => $tasks
+        ];
     }
     
     /**
