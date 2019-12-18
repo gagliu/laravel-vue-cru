@@ -18,7 +18,7 @@ new Vue({
         errors: [],
         offset: 3 //3 botones de paginacion antes y 3 botones despues de la paginacion activa
     },
-    computed: {
+    computed: { 
         isActived: function() { //Resalta el numero de la pagina actual
             return this.pagination.current_page;
         },
@@ -45,7 +45,7 @@ new Vue({
             return pagesArray;
         }
     },
-    methods: {
+    methods: { //Methods define funciones
         getKeeps: function(page) {
             var urlKeeps = 'tasks?page='+page;
             axios.get(urlKeeps).then( response => {
